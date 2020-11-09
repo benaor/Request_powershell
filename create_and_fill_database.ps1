@@ -176,7 +176,7 @@ requeteSQL(
 # Créé la table Users
 requeteSQL(
     "CREATE TABLE IF NOT EXISTS t_users (
-    user_matricule INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    user_matricule INT PRIMARY KEY AUTO_INCREMENT,
     user_nom VARCHAR(255) NOT NULL,
     user_prenom VARCHAR(255) NOT NULL,
     user_email VARCHAR(255) NOT NULL,
@@ -208,7 +208,7 @@ requeteSQL(
     REFERENCES t_etablissements (etb_code)"
 )
 
-# Remplir la table t_societe 
+# Remplir la table t_societes
 requeteSQL(
     "INSERT INTO t_societes VALUES
         ('ECL','ECL developpement'),
@@ -216,7 +216,7 @@ requeteSQL(
         ('PSA', 'pole PSA')"
 )
             
-# remplir la table t_etablissement
+# remplir la table t_etablissements
 requeteSQL(
     "INSERT INTO t_etablissements VALUES 
         ('TRIGONE', 'trigone siege social','ECL'),
@@ -227,12 +227,22 @@ requeteSQL(
         ('ETL70', 'Mercedes-benz Vesoul', 'MB')"
 ) 
             
-# remplir la table t_fonction 
+# remplir la table t_fonctions
 requeteSQL(
     "INSERT INTO t_fonctions VALUES 
         ('PDG', 'president directeur general'),
         ('DRH', 'Directeur des ressources humaines'), 
-        ('DSI', 'Directeur des systemes d\'informations')"
+        ('DSI', 'Directeur des systemes d\'informations'),
+        ('DMB', 'Directeur Mercedes-benz'),
+        ('TI', 'technicien Informatique')"
 )
     
+# remplir la table t_users
+requeteSQL(
+    "INSERT INTO t_users (user_nom, user_prenom, user_email, fct_code, soc_code, etb_code)
+     VALUES
+        ('Girard', 'Benjamin', 'benjamin.girard@groupechopard.com', 'TI', 'ECL', 'INNO'),
+        ('martin', 'michel', 'michel.martin@groupechopard.com', 'DRH', 'ECL', 'TRIGONE'),
+        ('Dupont', 'joseph', 'joseph.dupont@groupechopard.com', 'DMB', 'MB', 'ETL25')"
+)
 #endregion
