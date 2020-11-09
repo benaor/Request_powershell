@@ -86,3 +86,4 @@ function tableToCsv {
 tableToCsv("t_etablissements")
 tableToCsv("t_fonctions")
 tableToCsv("t_societes")
+tableToCsv("t_users")
