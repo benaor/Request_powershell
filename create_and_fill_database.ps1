@@ -173,6 +173,41 @@ requeteSQL(
         ENGINE=InnoDB;"
 )
 
+# Créé la table Users
+requeteSQL(
+    "CREATE TABLE IF NOT EXISTS t_users (
+    user_matricule INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    user_nom VARCHAR(255) NOT NULL,
+    user_prenom VARCHAR(255) NOT NULL,
+    user_email VARCHAR(255) NOT NULL,
+    fct_code VARCHAR(10),
+    soc_code VARCHAR(10),
+    etb_code VARCHAR(10),
+    INDEX IDX_fct_user (fct_code),
+    INDEX IDX_soc_user (soc_code),
+    INDEX IDX_etb_user (etb_code)
+    )
+    ENGINE=InnoDB;"
+)
+requeteSQL(
+    "ALTER TABLE t_users 
+    ADD CONSTRAINT FK_fct_user 
+    FOREIGN KEY (fct_code) 
+    REFERENCES t_fonctions (fct_code)"
+)
+requeteSQL(
+    "ALTER TABLE t_users 
+    ADD CONSTRAINT FK_soc_user 
+    FOREIGN KEY (soc_code) 
+    REFERENCES t_societes (soc_code)"
+)
+requeteSQL(
+    "ALTER TABLE t_users 
+    ADD CONSTRAINT FK_etb_user 
+    FOREIGN KEY (etb_code) 
+    REFERENCES t_etablissements (etb_code)"
+)
+
 # Remplir la table t_societe 
 requeteSQL(
     "INSERT INTO t_societes VALUES
