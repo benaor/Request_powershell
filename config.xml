@@ -1,0 +1,13 @@
+<Configuration>
+  <!-- <Log>
+    <DirectoryPath>C:\temp\logs</DirectoryPath>
+    <FileName>log-nom-du-script__%{+%Y%m%d}.log</FileName>
+  </Log> -->
+
+<DBServer>localhost</DBServer>
+<DBPort>3307</DBPort>
+<DBLogin>root</DBLogin>
+<DBPassword></DBPassword>
+<DBName>test</DBName>
+  
+</Configuration>
