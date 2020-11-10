@@ -2,6 +2,8 @@ Pour executer le script :
 
 Editez le fichier "config.xml" pour permettre la connexion avec la base de données, choisir un DBName qui n'est pas déjà utilisé
 
+installer le module : https://dev.mysql.com/downloads/connector/net/
+
 Placez-vous dans le répertoire "PowershellSQL" depuis votre invite de commande Powershell
 
 Executer "./create_and_fill_database.ps1" pour créer et remplir la base de données avec des données pré-configuré
