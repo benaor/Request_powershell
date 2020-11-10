@@ -143,14 +143,58 @@ try {
         #endregion
 
     }
+    function addUser {
+        
+        # Je recupère les données necessaire auprès de mon user 
+        $user_nom = Read-Host "Quel est son nom ? "
+        $user_prenom  = Read-Host "Quel est son prenom ? "
+        $user_email  = Read-Host "Quel est son email ? "
+        $fct_code  = Read-Host "Quel est le code de sa fonction ? "
+        $soc_code  = Read-Host "Quel est le code de sa societe  ? "
+        $etb_code  = Read-Host "Quel est le code de son etablissement  ? "
+
+        # Je créé la requete
+        $req = "INSERT INTO t_users (user_nom, user_prenom, user_email, fct_code, soc_code, etb_code)
+        VALUES ( '$($user_nom)', '$($user_prenom)', '$($user_email)', '$($fct_code)', '$($soc_code)', '$($etb_code)')"
+          
+
+        $MysqlCmd = New-Object MySql.Data.MySqlClient.MySqlCommand($req, $connexionSQL)      # Créer la commande SQL en indiquant la requête et la connexion
+        $MysqlCmd.CommandText = $req                                                         # On met la requête dans la propriété CommandText de la commande
+        $SqlCmdExecute = $MysqlCmd.ExecuteNonQuery()                                         # On exécute la commande
+
+        #region J'envoie la requete 
+        try {
+            if ($SqlCmdExecute) {
+                $SqlCmdExecute;
+                Write-Host "L'utilisateur $($user_nom) $($user_prenom) - $($fct_code) chez $($soc_code) - a bien ete enregistrer dans notre base de donnees"
+            }
+
+            #region fermer la connexion
+            try {
+                $MysqlCmd.Dispose();
+                $connexionSQL.Close();
+                Write-Host "La connexion avec la base de donnees s'est correctement arreter apres l'execution du script"
+            }
+            catch {
+                Write-Error "La connexion avec la base de donnees n'a pas pu etre ferme"
+            }
+            #endregion
+        }
+        catch {
+            Write-Error "Erreur lors de l'execution de la requete"
+        }
+        #endregion
+
+    }
     #endregion
 
-    $tableARemplir = Read-Host "Quelle type de donnees voulez-vous ajouter ? (societe, etablissement, fonction ?) "
+    $tableARemplir = Read-Host "Quelle type de donnees voulez-vous ajouter ? (societe, etablissement, fonction, user ?) "
 
     switch ($tableARemplir) {
         "societe" { addSociete }
         "etablissement" { addEtablissement }
         "fonction" { addFonction }
+        "user" { addUser }
 
         Default { Write-Error "aucune table ne porte le nom t_$($tableARemplir)"}
     }
