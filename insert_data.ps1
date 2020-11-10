@@ -47,14 +47,14 @@ try {
         try {
             if ($SqlCmdExecute) {
                 $SqlCmdExecute;
-                Write-Host "La societe - $($soc_nom) - ayant pour code - $($soc_code) - a bien ete enregistrer dans notre base de donnees"
+                Write-Host "La societe - $($soc_nom) - ayant pour code - $($soc_code) - a bien ete enregistre dans notre base de donnees"
             }
 
             #region fermer la connexion
             try {
                 $MysqlCmd.Dispose();
                 $connexionSQL.Close();
-                Write-Host "La connexion avec la base de donnees s'est correctement arreter apres l'execution du script"
+                Write-Host "La connexion avec la base de donnees s'est correctement arrete apres l'execution du script"
             }
             catch {
                 Write-Error "La connexion avec la base de donnees n'a pas pu etre ferme"
@@ -93,7 +93,7 @@ try {
             try {
                 $MysqlCmd.Dispose();
                 $connexionSQL.Close();
-                Write-Host "La connexion avec la base de donnees s'est correctement arreter apres l'execution du script"
+                Write-Host "La connexion avec la base de donnees s'est correctement arrete apres l'execution du script"
             }
             catch {
                 Write-Error "La connexion avec la base de donnees n'a pas pu etre ferme"
@@ -123,14 +123,14 @@ try {
         try {
             if ($SqlCmdExecute) {
                 $SqlCmdExecute;
-                Write-Host "La fonction de $($fct_nom) - ayant pour code - $($fct_code) - a bien ete enregistrer dans notre base de donnees"
+                Write-Host "La fonction de $($fct_nom) - ayant pour code - $($fct_code) - a bien ete enregistre dans notre base de donnees"
             }
 
             #region fermer la connexion
             try {
                 $MysqlCmd.Dispose();
                 $connexionSQL.Close();
-                Write-Host "La connexion avec la base de donnees s'est correctement arreter apres l'execution du script"
+                Write-Host "La connexion avec la base de donnees s'est correctement arrete apres l'execution du script"
             }
             catch {
                 Write-Error "La connexion avec la base de donnees n'a pas pu etre ferme"
@@ -150,14 +150,12 @@ try {
         $user_prenom  = Read-Host "Quel est son prenom ? "
         $user_email  = Read-Host "Quel est son email ? "
         $fct_code  = Read-Host "Quel est le code de sa fonction ? "
-        $soc_code  = Read-Host "Quel est le code de sa societe  ? "
         $etb_code  = Read-Host "Quel est le code de son etablissement  ? "
 
         # Je créé la requete
-        $req = "INSERT INTO t_users (user_nom, user_prenom, user_email, fct_code, soc_code, etb_code)
-        VALUES ( '$($user_nom)', '$($user_prenom)', '$($user_email)', '$($fct_code)', '$($soc_code)', '$($etb_code)')"
+        $req = "INSERT INTO t_users (user_nom, user_prenom, user_email, fct_code, etb_code)
+        VALUES ( '$($user_nom)', '$($user_prenom)', '$($user_email)', '$($fct_code)', '$($etb_code)')"
           
-
         $MysqlCmd = New-Object MySql.Data.MySqlClient.MySqlCommand($req, $connexionSQL)      # Créer la commande SQL en indiquant la requête et la connexion
         $MysqlCmd.CommandText = $req                                                         # On met la requête dans la propriété CommandText de la commande
         $SqlCmdExecute = $MysqlCmd.ExecuteNonQuery()                                         # On exécute la commande
@@ -166,14 +164,14 @@ try {
         try {
             if ($SqlCmdExecute) {
                 $SqlCmdExecute;
-                Write-Host "L'utilisateur $($user_nom) $($user_prenom) - $($fct_code) chez $($soc_code) - a bien ete enregistrer dans notre base de donnees"
+                Write-Host "L'utilisateur $($user_nom) $($user_prenom) - $($fct_code) - a bien ete enregistre dans notre base de donnees"
             }
 
             #region fermer la connexion
             try {
                 $MysqlCmd.Dispose();
                 $connexionSQL.Close();
-                Write-Host "La connexion avec la base de donnees s'est correctement arreter apres l'execution du script"
+                Write-Host "La connexion avec la base de donnees s'est correctement arrete apres l'execution du script"
             }
             catch {
                 Write-Error "La connexion avec la base de donnees n'a pas pu etre ferme"
