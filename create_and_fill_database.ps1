@@ -181,26 +181,20 @@ requeteSQL(
     user_prenom VARCHAR(255) NOT NULL,
     user_email VARCHAR(255) NOT NULL,
     fct_code VARCHAR(10),
-    soc_code VARCHAR(10),
     etb_code VARCHAR(10),
     INDEX IDX_fct_user (fct_code),
-    INDEX IDX_soc_user (soc_code),
     INDEX IDX_etb_user (etb_code)
     )
     ENGINE=InnoDB;"
 )
+
 requeteSQL(
     "ALTER TABLE t_users 
     ADD CONSTRAINT FK_fct_user 
     FOREIGN KEY (fct_code) 
     REFERENCES t_fonctions (fct_code)"
 )
-requeteSQL(
-    "ALTER TABLE t_users 
-    ADD CONSTRAINT FK_soc_user 
-    FOREIGN KEY (soc_code) 
-    REFERENCES t_societes (soc_code)"
-)
+
 requeteSQL(
     "ALTER TABLE t_users 
     ADD CONSTRAINT FK_etb_user 
@@ -239,10 +233,22 @@ requeteSQL(
     
 # remplir la table t_users
 requeteSQL(
-    "INSERT INTO t_users (user_nom, user_prenom, user_email, fct_code, soc_code, etb_code)
+    "INSERT INTO t_users (user_nom, user_prenom, user_email, fct_code, etb_code)
      VALUES
-        ('Girard', 'Benjamin', 'benjamin.girard@groupechopard.com', 'TI', 'ECL', 'INNO'),
-        ('martin', 'michel', 'michel.martin@groupechopard.com', 'DRH', 'ECL', 'TRIGONE'),
-        ('Dupont', 'joseph', 'joseph.dupont@groupechopard.com', 'DMB', 'MB', 'ETL25')"
+        ('Girard', 'Benjamin', 'benjamin.girard@groupechopard.com', 'TI', 'INNO'),
+        ('martin', 'michel', 'michel.martin@groupechopard.com', 'DRH', 'TRIGONE'),
+        ('Dupont', 'joseph', 'joseph.dupont@groupechopard.com', 'DMB', 'ETL25')"
+)
+
+requeteSQL(
+    "CREATE VIEW v_all_users AS
+     SELECT user_nom, user_prenom, fct_nom, etb_nom, soc_nom
+     FROM t_users
+     INNER JOIN t_fonctions
+     ON t_users.fct_code = t_fonctions.fct_code
+     INNER JOIN t_etablissements 
+     ON t_users.etb_code = t_etablissements.etb_code
+     INNER JOIN t_societes
+     ON t_etablissements.soc_code = t_societes.soc_code"
 )
 #endregion
